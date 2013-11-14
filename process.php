@@ -1,26 +1,13 @@
 <?php
 
-$name           = '';
-$email          = '';
-$nickname       = '';
-$superheroAlias = '';
-
 $errors         = array();  	// array to hold validation errors
 $data 			= array();
 
-// get variables ===============================================================
-
-	return json_encode('fuck');
-
-	// get variables
-	$name           = $_POST['name'];
-	$superheroAlias = $_POST['superheroAlias'];
-
 // validate the variables ======================================================
-	if ($name == '')
+	if ($_POST['name'] == '')
 		$errors['name'] = 'Name is required.';
 
-	if ($superheroAlias == '')
+	if ($_POST['superheroAlias'] == '')
 		$errors['superheroAlias'] = 'Superhero alias is required.';
 
 // return a response ===========================================================
@@ -35,5 +22,4 @@ $data 			= array();
 	}
 
 	// return all our data
-	$data['test'] = 'stuff';
-	return json_encode($data);
+	echo json_encode($data);

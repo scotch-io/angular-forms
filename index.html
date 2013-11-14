@@ -23,15 +23,24 @@
 				};
 
 				// process the form
-				$.post('process.php', formData)
-					.done(function(data) {
-						// add the messages to the error messages section
-						console.log(formData);
-						console.log(data);
-					})
-					.error(function(data) {
-						console.log(data);
-					});
+				$.ajax({
+					type 		: 'POST',
+					url 		: 'process.php',
+					data 		: formData,
+					dataType 	: 'json',
+					success 	: function(data) {
+						// if validation fails
+						if ( ! data.success) {
+							$.each(data.errors, function(key, value) {
+								$('#error-messages').append('<p>' + value + '</p>');
+							});
+						} else {
+						// if validation passes
+							// clear the errors
+							$('#error-messages').empty();
+						}
+					}
+				});
 
 				// stop the form from submitting and refreshing
 				return false;
@@ -59,13 +68,13 @@
 		<!-- NAME -->
 		<div class="form-group">
 			<label>Name</label>
-			<input type="text" name="name" class="form-control">
+			<input type="text" name="name" class="form-control" placeholder="Bruce Wayne">
 		</div>
 
 		<!-- SUPERHERO NAME -->
 		<div class="form-group">
 			<label>Superhero Alias</label>
-			<input type="text" name="superheroAlias" class="form-control">
+			<input type="text" name="superheroAlias" class="form-control" placeholder="Caped Crusader">
 		</div>
 
 		<!-- SUBMIT BUTTON -->
