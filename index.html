@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<title>Angular Forms</title>
+
+	<!-- LOAD BOOTSTRAP CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+	<!-- LOAD JQUERY -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+	<!-- PROCESS FORM WITH AJAX (OLD) -->
+	<script>
+		$(document).ready(function() {
+
+			// process the form
+			$('form').submit(function() {
+
+				// get the form data
+				var formData = {
+					'name' 				: $('input[name=name]').val(),
+					'superheroAlias' 	: $('input[name=superheroAlias]').val()
+				};
+
+				// process the form
+				$.post('process.php', formData)
+					.done(function(data) {
+						// add the messages to the error messages section
+						console.log(formData);
+						console.log(data);
+					})
+					.error(function(data) {
+						console.log(data);
+					});
+
+				// stop the form from submitting and refreshing
+				return false;
+			});
+
+		});
+	</script>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+	<div class="page-header">
+		<h1><span class="glyphicon glyphicon-tower"></span> Submitting Forms with Angular</h1>
+	</div>
+
+	<!-- ERROR MESSAGES -->
+	<div id="error-messages">
+
+	</div>
+
+	<!-- FORM -->
+	<form action="process.php">
+
+		<!-- NAME -->
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" name="name" class="form-control">
+		</div>
+
+		<!-- SUPERHERO NAME -->
+		<div class="form-group">
+			<label>Superhero Alias</label>
+			<input type="text" name="superheroAlias" class="form-control">
+		</div>
+
+		<!-- SUBMIT BUTTON -->
+		<button type="submit" class="btn btn-success btn-lg btn-block"><span class="glyphicon glyphicon-flash"></span> Submit!</button>
+
+	</form>
+</div>
+</div>
+</div>
+</body>
+</html>
