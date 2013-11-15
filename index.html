@@ -16,6 +16,9 @@
 			// process the form
 			$('form').submit(function() {
 
+				// remove the past errors
+				$('#messages').removeClass('alert alert-danger alert-success').empty();
+
 				// get the form data
 				var formData = {
 					'name' 				: $('input[name=name]').val(),
@@ -32,12 +35,12 @@
 						// if validation fails
 						if ( ! data.success) {
 							$.each(data.errors, function(key, value) {
-								$('#error-messages').append('<p>' + value + '</p>');
+								$('#messages').addClass('alert alert-danger').append('<p>' + value + '</p>');
 							});
 						} else {
-						// if validation passes
-							// clear the errors
-							$('#error-messages').empty();
+
+							// if validation is good
+							$('#messages').addClass('alert alert-success').append('<p>' + data.message + '</p>');
 						}
 					}
 				});
@@ -57,10 +60,8 @@
 		<h1><span class="glyphicon glyphicon-tower"></span> Submitting Forms with Angular</h1>
 	</div>
 
-	<!-- ERROR MESSAGES -->
-	<div id="error-messages">
-
-	</div>
+	<!-- ERROR MESSAGES (placed here by javascript) -->
+	<div id="messages" class="text-center"></div>
 
 	<!-- FORM -->
 	<form action="process.php">

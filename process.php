@@ -15,7 +15,7 @@ $data 			= array();
 	// response if there are errors
 	if ( ! empty($errors)) {
 		$data['success'] = false;
-		$data['errors'] = $errors;
+		$data['errors']  = $errors;
 	} else {
 		$data['success'] = true;
 		$data['message'] = 'Success!';
