@@ -14,10 +14,14 @@
 		$(document).ready(function() {
 
 			// process the form
-			$('form').submit(function() {
+			$('form').submit(function(event) {
 
 				// remove the past errors
-				$('#messages').removeClass('alert alert-danger alert-success').empty();
+				$('#name-group').removeClass('has-error');
+				$('#name-group .help-block').empty();
+
+				$('#superhero-group').removeClass('has-error');
+				$('#superhero-group .help-block').empty();
 
 				// get the form data
 				var formData = {
@@ -32,11 +36,23 @@
 					data 		: formData,
 					dataType 	: 'json',
 					success 	: function(data) {
+
+						// log data to the console so we can see
+						console.log(data);
+
 						// if validation fails
 						if ( ! data.success) {
-							$.each(data.errors, function(key, value) {
-								$('#messages').addClass('alert alert-danger').append('<p>' + value + '</p>');
-							});
+
+							if (data.errors.name) {
+								$('#name-group').addClass('has-error');
+								$('#name-group .help-block').html(data.errors.name);
+							}
+
+							if (data.errors.superheroAlias) {
+								$('#superhero-group').addClass('has-error');
+								$('#superhero-group .help-block').html(data.errors.superheroAlias);
+							}
+
 						} else {
 
 							// if validation is good
@@ -46,7 +62,7 @@
 				});
 
 				// stop the form from submitting and refreshing
-				return false;
+				event.preventDefault();
 			});
 
 		});
@@ -56,32 +72,32 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
+
+	<!-- PAGE TITLE -->
 	<div class="page-header">
 		<h1><span class="glyphicon glyphicon-tower"></span> Submitting Forms with Angular</h1>
 	</div>
 
-	<!-- ERROR MESSAGES (placed here by javascript) -->
-	<div id="messages" class="text-center"></div>
-
 	<!-- FORM -->
-	<form action="process.php">
-
+	<form>
 		<!-- NAME -->
-		<div class="form-group">
+		<div id="name-group" class="form-group">
 			<label>Name</label>
 			<input type="text" name="name" class="form-control" placeholder="Bruce Wayne">
+			<span class="help-block"></span>
 		</div>
 
 		<!-- SUPERHERO NAME -->
-		<div class="form-group">
+		<div id="superhero-group" class="form-group">
 			<label>Superhero Alias</label>
 			<input type="text" name="superheroAlias" class="form-control" placeholder="Caped Crusader">
+			<span class="help-block"></span>
 		</div>
 
 		<!-- SUBMIT BUTTON -->
 		<button type="submit" class="btn btn-success btn-lg btn-block"><span class="glyphicon glyphicon-flash"></span> Submit!</button>
-
 	</form>
+
 </div>
 </div>
 </div>
