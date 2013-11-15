@@ -4,10 +4,10 @@ $errors         = array();  	// array to hold validation errors
 $data 			= array();
 
 // validate the variables ======================================================
-	if ($_POST['name'] == '')
+	if (empty($_POST['name']))
 		$errors['name'] = 'Name is required.';
 
-	if ($_POST['superheroAlias'] == '')
+	if (empty($_POST['superheroAlias']))
 		$errors['superheroAlias'] = 'Superhero alias is required.';
 
 // return a response ===========================================================
