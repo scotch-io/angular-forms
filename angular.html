@@ -29,8 +29,12 @@
 				})
 					.success(function(data) {
 						console.log(data);
-						$scope.errorName = data.errors.name;
-						$scope.errorSuperhero = data.errors.superheroAlias;
+						if (!data.success) {
+							$scope.errorName = data.errors.name;
+							$scope.errorSuperhero = data.errors.superheroAlias;
+						} else {
+							$scope.message = data.message;
+						}
 					});
 
 				// SHORTHAND VERSION
@@ -52,6 +56,8 @@
 	<div class="page-header">
 		<h1><span class="glyphicon glyphicon-tower"></span> Submitting Forms with Angular</h1>
 	</div>
+
+	<div id="messages" class="alert alert-success" ng-show="message">{{ message }}</div>
 
 	<!-- FORM -->
 	<form ng-submit="processForm()">

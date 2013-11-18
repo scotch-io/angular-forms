@@ -1,7 +1,7 @@
 <?php
 
 $errors         = array();  	// array to hold validation errors
-$data 			= array();
+$data 			= array(); 		// array to pass back data
 
 // validate the variables ======================================================
 	if (empty($_POST['name']))
